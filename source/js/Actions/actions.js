@@ -5,8 +5,13 @@ export const {
     trainingStart:trainingStart,
     trainingFinish:trainingFinish,
     getTrainingText:getTrainingText,
-    getRandomString:getRandomString
+    getRandomString:getRandomString,
+    getTimer:getTimer,
+    getStopwatch:getStopwatch,
+    getErrorsCount:getErrorsCount,
+    getCharCount:getCharCount
 } = createActions({
+
     APP_STATE_UP: level=>level,
 
     TRAINING_FINISH: undefined,
@@ -17,4 +22,11 @@ export const {
 
     GET_RANDOM_STRING: TrainingText => TrainingText,
 
+    GET_TIMER: sec => sec,
+
+    GET_STOPWATCH: sec => sec,
+
+    GET_ERRORS_COUNT: undefined,
+
+    GET_CHAR_COUNT: undefined
 });

@@ -4,21 +4,28 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import {getTrainingText,getRandomString} from '../../Actions/actions';
+import TrainingFields from '../TrainingFields';
+import TrainingTextBox from '../TrainingTextBox';
+import {getTimer,getStopwatch} from "../../Actions/actions";
 
 export class Training extends Component {
-    componentDidMount =()=> {
-        const {TrainingText} = this.props;
-        console.log("Компонента Training componentDidMount:",TrainingText);
-        getRandomString(TrainingText);
-    };
-
+    // componentDidMount =()=> {
+    //     const {TrainingText,getRandomString} = this.props;
+    //     getRandomString(TrainingText);
+    // };
     render() {
-        const {TrainingText} = this.props;
-
+        const {Timer,Stopwatch,ErrorsCount,CharCount} = this.props;
+        console.log(Timer);
         return (
             <div>
-                {TrainingText}
+                {[Timer,Stopwatch,ErrorsCount,CharCount].map((field,i) => (
+                    <TrainingFields
+                        key = {i}
+                        name = {field.name}
+                        value = {field.value}
+                    />
+                ))}
+                <TrainingTextBox/>
             </div>
         )
     }
@@ -26,21 +33,16 @@ export class Training extends Component {
 
 const mapStateToProps = (state) =>{
     return{
-        TrainingText:state.TrainingText
+        Timer:{name:'Осталось времени',value:state.Timer},
+        Stopwatch:{name:'Прошло времени',value:state.Stopwatch},
+        ErrorsCount:{name:'Кол-во ошибок',value:state.ErrorsCount},
+        CharCount:{name:'Осталось символов',value:state.CharCount},
     }
 };
 
 const mapDispatchToProps = (dispatch) =>{
     return {
-        getTrainingText:()=>{
-            dispatch(getTrainingText());
-        },
-        getRandomString: (string) => {
-            dispatch(getRandomString(string));
-        },
-        // addNewProduct: (product) => {
-        //     dispatch(addNewProduct(product));
-        // },
+
         // handleEdit: (product) => {
         //     dispatch(handleEdit(product));
         // },
