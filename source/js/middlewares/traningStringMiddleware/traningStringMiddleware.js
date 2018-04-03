@@ -1,5 +1,5 @@
-import {appStateUp,trainingStart,getRandomString} from "../../Actions/actions.js";
-import {getTrainingText} from "../../Actions/actions";
+import {appStateUp,trainingStart,getRandomString} from "../../actions/actions.js";
+import {getTrainingText} from "../../actions/actions";
 
 
 const traningStringMiddleware = store => next => action => {
@@ -22,7 +22,6 @@ const traningStringMiddleware = store => next => action => {
 
         lol = arr.map(num => (string[num]));
         store.dispatch(getTrainingText(lol));
-        console.log('Строка в мидлвере ',lol);
     }
     return next(action);
 };

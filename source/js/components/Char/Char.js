@@ -4,18 +4,16 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
+import ErrorChar from "../../reducers/ErrorChar/ErrorChar";
 
 export class Char extends Component {
 
     render() {
         const {name,isChecked,isError} = this.props;
+        console.log('в char',isError);
+        // isChecked?"Char Char--checked":
         return (
-            <div style={{
-                border:isError?'1px solid red':'1px solid gray',
-                background:isChecked?'gray':'#fff',
-                marginRight:'10px',
-                padding:'5px'
-            }}>
+            <div className={isError?"Char Char--error":isChecked?"Char Char--checked":"Char"} >
                 {name}
             </div>
 
@@ -24,9 +22,7 @@ export class Char extends Component {
 }
 
 const mapStateToProps = (state) =>{
-    return{
-
-    }
+    return {}
 };
 
 const mapDispatchToProps = (dispatch) =>{

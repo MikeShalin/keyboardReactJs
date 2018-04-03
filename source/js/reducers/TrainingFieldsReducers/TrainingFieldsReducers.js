@@ -3,7 +3,7 @@ import {
     getStopwatch,
     getErrorsCount,
     getCharCount
-} from '../../Actions/actions.js';
+} from '../../actions/actions.js';
 import {handleAction, handleActions} from 'redux-actions';
 
 export const Timer = handleAction(

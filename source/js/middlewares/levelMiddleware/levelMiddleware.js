@@ -1,5 +1,12 @@
-import {appStateUp,trainingStart,getRandomString, getStopwatch, getTimer} from "../../Actions/actions.js";
-import AppState from "../../reducers/AppState/AppState";
+import {
+    appStateUp,
+    trainingStart,
+    getStopwatch,
+    getTimer,
+    getTrainingText,
+    getErrorsCount,
+    getCharCount
+} from "../../actions/actions.js";
 
 
 const levelMiddleware = store => next => action => {
@@ -7,8 +14,16 @@ const levelMiddleware = store => next => action => {
         action.type === trainingStart.toString()
     ) {
         let {AppState} = store.getState();
-        console.log('уровень игры',action.payload);
-        store.dispatch(appStateUp(action.payload));
+        if (AppState < 3 || action.payload===1){
+            let level = store.dispatch(appStateUp(action.payload));
+            if (level.payload === 1 && action.payload===1){
+                store.dispatch(getTrainingText("АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ1234567890"));
+                store.dispatch(getTimer(60));
+                store.dispatch(getStopwatch(0));
+                store.dispatch(getErrorsCount(0));
+                store.dispatch(getCharCount(10));
+            }
+        }
     }
 
     return next(action);

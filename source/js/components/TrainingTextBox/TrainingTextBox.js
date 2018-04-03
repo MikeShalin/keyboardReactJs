@@ -4,7 +4,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import {getRandomString} from '../../Actions/actions';
+import {getRandomString} from '../../actions/actions';
 import Char from '../Char/';
 
 export class TrainingTextBox extends Component {
@@ -15,8 +15,8 @@ export class TrainingTextBox extends Component {
     };
 
     render() {
-        const {TrainingText} = this.props;
-        console.log('я нажал кнопку',document.e);
+        const {TrainingText,ErrorChar} = this.props;
+        console.log('есть ошибка',ErrorChar);
         return (
             <div style={{display:'flex'}}>
                 {typeof TrainingText !=='string'?TrainingText.map((char,i) => (
@@ -24,6 +24,7 @@ export class TrainingTextBox extends Component {
                         key={i}
                         name={char}
                         isChecked={i===0}
+                        isError={i===0&&ErrorChar}
                     />
                 )):'Подождите, идет загрузка'}
             </div>
@@ -35,6 +36,8 @@ export class TrainingTextBox extends Component {
 const mapStateToProps = (state) =>{
     return{
         TrainingText:state.TrainingText,
+        ErrorChar: state.ErrorChar
+
     }
 };
 

@@ -1,4 +1,4 @@
-import {getTrainingText} from '../../Actions/actions.js';
+import {getTrainingText} from '../../actions/actions.js';
 import {handleAction, handleActions} from 'redux-actions';
 
 const TrainingText = handleAction(

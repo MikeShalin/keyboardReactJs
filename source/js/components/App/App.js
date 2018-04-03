@@ -3,11 +3,10 @@
  */
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Switch,Route,Link,Redirect,withRouter} from 'react-router-dom';
 import Training from '../Training/';
 import Results from '../Results/';
 import LevelButton from '../LevelButton/';
-import {appStateUp,trainingStart} from '../../Actions/actions';
+import {trainingStart} from '../../actions/actions';
 
 export class App extends Component {
 
@@ -18,14 +17,11 @@ export class App extends Component {
 
     render() {
         const {AppState} = this.props;
-        console.log("Компонента app auth:",AppState);
-
         return (
             <div>
                 <LevelButton
                     onClick={this.handleStateUp}
                 />
-                Этап {AppState}
                 {AppState===2?<Training/>:""}
                 {AppState===3?<Results/>:""}
             </div>
@@ -47,4 +43,4 @@ const mapDispatchToProps = (dispatch) =>{
     }
 };
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(App));
+export default connect(mapStateToProps,mapDispatchToProps)(App);

@@ -6,37 +6,78 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import TrainingFields from '../TrainingFields';
 import TrainingTextBox from '../TrainingTextBox';
-import {keyboard, getStopwatch, getTimer} from "../../Actions/actions";
+import {keyboard, getStopwatch, getTimer,trainingStart,errorChar} from "../../actions/actions";
 
 export class Training extends Component {
-    timerStop =()=>{
+    componentWillUnmount(){
         clearInterval(this.timer);
         clearInterval(this.stopwatch);
+        removeEventListener("keydown", this.keyboardListener);
     };
+    keyboardListener =(e)=>{
+        const {keyboard} = this.props;
+        if(e.key.length === 1){
+            keyboard(e.key);
+        }
+    };
+    interval = (timerTime,trainingStart,AppState,getTimer) =>setInterval(()=>{
+        timerTime--;
+        getTimer(timerTime);
+        if(timerTime === 0){
+            clearInterval(this.timer);
+            trainingStart(AppState+1);
+        }
+    },1000);
+    // componentWillReceiveProps(nextProps){
+    //     const {TrainingText,errorChar} = this.props;
+    //     if(nextProps.TrainingText.length !== TrainingText.length){
+    //         console.log('Хуй там плавал');
+    //     } else {
+    //         console.log('Одинаково');
+    //
+    //     }
+    // }
+    componentDidUpdate(prevProps) {
+        const {Timer,CharCount,AppState,getTimer,trainingStart,TrainingText,errorChar} = this.props;
+        let timerTime = Timer.value;
+        // console.log(TrainingText);
+        // if(TrainingText.length !== CharCount){
+        //     console.log('Хуй там плавал');
+        // } else {
+        //     console.log('Одинаково');
+        //
+        // }
+        if(CharCount.value === 0){
+            trainingStart(AppState+1);
+        }
+        if(prevProps.CharCount.value !== CharCount.value){
+            clearInterval(this.timer);
+            timerTime = 60;
+            getTimer(timerTime);
+            this.timer = this.interval(timerTime,trainingStart,AppState,getTimer);
+        }
+    }
     componentDidMount(){
-        const {keyboard,getTimer,getStopwatch,Timer,Stopwatch} = this.props;
+        const {
+            getTimer,
+            getStopwatch,
+            Timer,
+            Stopwatch,
+            trainingStart,
+            AppState} = this.props;
         let timerTime = Timer.value,
             stopwatchTime = Stopwatch.value;
-        timerTime--;
-        stopwatchTime++;
-        addEventListener("keydown", function(e) {
-            console.log('В тренировке', e.key);
-            if((e.key !== 'Control') || (e.key !== 'Alt') || (e.key !== 'Shift'))
-                keyboard(e.key);
-        });
+        addEventListener("keydown", this.keyboardListener);
 
-        this.timer = setInterval(()=>{
-            if(timerTime === 0){
-                clearInterval(this.Timer);
-            }
-            getTimer(timerTime);
-        },1000);
+        this.timer = this.interval(timerTime,trainingStart,AppState,getTimer);
 
         this.stopwatch = setInterval(()=>{
-            if(stopwatchTime === 60){
-                clearInterval(this.Stopwatch);
-            }
+            stopwatchTime++;
             getStopwatch(stopwatchTime);
+            if(stopwatchTime === 60){
+                clearInterval(this.stopwatch);
+                trainingStart(AppState+1);
+            }
         },1000);
     }
     render() {
@@ -48,12 +89,10 @@ export class Training extends Component {
                         key = {i}
                         name = {field.name}
                         value = {field.value}
+                        etc = {field.etc}
                     />
                 ))}
-                <button onClick={this.done}>done</button>
-                <TrainingTextBox
-
-                />
+                <TrainingTextBox/>
             </div>
         )
     }
@@ -61,15 +100,23 @@ export class Training extends Component {
 
 const mapStateToProps = (state) =>{
     return{
-        Timer:{name:'Осталось времени',value:state.Timer},
-        Stopwatch:{name:'Прошло времени',value:state.Stopwatch},
+        Timer:{name:'Осталось времени',value:state.Timer,etc:'с'},
+        Stopwatch:{name:'Прошло времени',value:state.Stopwatch,etc:'с'},
         ErrorsCount:{name:'Кол-во ошибок',value:state.ErrorsCount},
         CharCount:{name:'Осталось символов',value:state.CharCount},
+        TrainingText:state.TrainingText,
+        AppState:state.AppState
     }
 };
 
 const mapDispatchToProps = (dispatch) =>{
     return {
+        trainingStart: (level) => {
+          dispatch(trainingStart(level))
+        },
+        errorChar: (char) => {
+            dispatch(errorChar(char))
+        },
         keyboard: (key) => {
             dispatch(keyboard(key));
         },

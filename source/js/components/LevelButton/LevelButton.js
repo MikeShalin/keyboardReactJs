@@ -4,14 +4,23 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
+import {trainingStart} from "../../actions/actions";
+
 
 export class LevelButton extends Component {
+    handleRepeat =()=>{
+        const {trainingStart} = this.props;
+        trainingStart(1);
+    };
 
     render() {
-        const {AppState,onClick} = this.props;
-
+        const {AppState,onClick} = this.props,
+              btnTitle = [
+                  'Старт',
+                  'Закончить',
+                  'Повторить'];
         return (
-            <button onClick={onClick}>{AppState === 1?"Старт":"Закончить"}</button>
+            <button onClick={AppState===3?this.handleRepeat:onClick}>{btnTitle[AppState-1]}</button>
 
         )
     }
@@ -24,7 +33,11 @@ const mapStateToProps = (state) =>{
 };
 
 const mapDispatchToProps = (dispatch) =>{
-    return {}
+    return {
+        trainingStart: (level) => {
+            dispatch(trainingStart(level));
+        }
+    }
 };
 
 export default withRouter(connect(mapStateToProps,mapDispatchToProps)(LevelButton));

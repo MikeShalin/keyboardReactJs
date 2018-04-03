@@ -2,7 +2,10 @@ import {
     keyboard,
     getTrainingText,
     getCharCount,
-    getErrorsCount} from "../../Actions/actions.js";
+    getErrorsCount,
+    getTimer,
+    errorChar
+} from "../../actions/actions.js";
 
 
 const keybordMiddleware = store => next => action => {
@@ -12,14 +15,14 @@ const keybordMiddleware = store => next => action => {
         const {TrainingText,ErrorsCount} = store.getState();
         if((TrainingText[0].toLowerCase() === action.payload.toLowerCase())){
             let newText = TrainingText.filter((char,i)=>(i!==0));
-            console.log('Верная кнопка',action.payload);
-            console.log('Символ тестовой строки',TrainingText[0].toLowerCase());
             store.dispatch(getTrainingText(newText));
-            store.dispatch(getCharCount(newText.length))
+            store.dispatch(getCharCount(newText.length));
+            store.dispatch(getTimer(60));
+            store.dispatch(errorChar(null));
         }
         else{
+            store.dispatch(errorChar(true));
             store.dispatch(getErrorsCount(ErrorsCount+1));
-            console.log('Другой символ',action.payload);
         }
     }
     return next(action);

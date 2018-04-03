@@ -8,11 +8,11 @@ import {withRouter} from 'react-router-dom';
 export class TrainingFields extends Component {
 
     render() {
-        const {name,value} = this.props;
+        const {name,value,etc} = this.props;
 
         return (
             <div>
-                {name}:{value}
+                {name}:{value} {etc?etc:''}
             </div>
 
         )
@@ -20,9 +20,7 @@ export class TrainingFields extends Component {
 }
 
 const mapStateToProps = (state) =>{
-    return{
-
-    }
+    return{}
 };
 
 const mapDispatchToProps = (dispatch) =>{

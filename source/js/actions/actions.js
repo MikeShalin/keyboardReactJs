@@ -3,21 +3,19 @@ import {createActions} from 'redux-actions';
 export const {
     appStateUp: appStateUp,
     trainingStart:trainingStart,
-    trainingFinish:trainingFinish,
     getTrainingText:getTrainingText,
     getRandomString:getRandomString,
     getTimer:getTimer,
-    startTimer:startTimer,
-    stopTimer:stopTimer,
     getStopwatch:getStopwatch,
     getErrorsCount:getErrorsCount,
     getCharCount:getCharCount,
-    keyboard:keyboard
+    keyboard:keyboard,
+    errorChar:errorChar
 } = createActions({
 
-    APP_STATE_UP: level=>level,
+    ERROR_CHAR: char => char,
 
-    TRAINING_FINISH: undefined,
+    APP_STATE_UP: level=>level,
 
     TRAINING_START: level=>level,
 
@@ -26,10 +24,6 @@ export const {
     GET_RANDOM_STRING: TrainingText => TrainingText,
 
     GET_TIMER: sec => sec,
-
-    STOP_TIMER:undefined,
-
-    START_TIMER:undefined,
 
     GET_STOPWATCH: sec => sec,
 
