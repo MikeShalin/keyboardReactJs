@@ -14,6 +14,7 @@ export class App extends Component {
         const {trainingStart} = this.props;
         trainingStart();
     };
+
     render() {
         const {AppState} = this.props;
         console.log("Компонента app auth:",AppState);

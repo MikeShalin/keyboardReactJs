@@ -9,7 +9,6 @@ export class Char extends Component {
 
     render() {
         const {name,isChecked,isError} = this.props;
-
         return (
             <div style={{
                 border:isError?'1px solid red':'1px solid gray',

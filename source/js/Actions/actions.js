@@ -9,7 +9,8 @@ export const {
     getTimer:getTimer,
     getStopwatch:getStopwatch,
     getErrorsCount:getErrorsCount,
-    getCharCount:getCharCount
+    getCharCount:getCharCount,
+    keyboard:keyboard
 } = createActions({
 
     APP_STATE_UP: level=>level,
@@ -28,5 +29,7 @@ export const {
 
     GET_ERRORS_COUNT: undefined,
 
-    GET_CHAR_COUNT: undefined
+    GET_CHAR_COUNT: undefined,
+
+    KEYBOARD: key=>key
 });

@@ -6,16 +6,18 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import TrainingFields from '../TrainingFields';
 import TrainingTextBox from '../TrainingTextBox';
-import {getTimer,getStopwatch} from "../../Actions/actions";
+import {keyboard} from "../../Actions/actions";
 
 export class Training extends Component {
-    // componentDidMount =()=> {
-    //     const {TrainingText,getRandomString} = this.props;
-    //     getRandomString(TrainingText);
-    // };
+    componentDidMount(){
+        const {keyboard} = this.props;
+        addEventListener("keydown", function(e) {
+            console.log('В тренировке', e.key);
+            keyboard(e.key);
+        });
+    }
     render() {
         const {Timer,Stopwatch,ErrorsCount,CharCount} = this.props;
-        console.log(Timer);
         return (
             <div>
                 {[Timer,Stopwatch,ErrorsCount,CharCount].map((field,i) => (
@@ -43,15 +45,9 @@ const mapStateToProps = (state) =>{
 const mapDispatchToProps = (dispatch) =>{
     return {
 
-        // handleEdit: (product) => {
-        //     dispatch(handleEdit(product));
-        // },
-        // updateDoneRow: (ID) => {
-        //     dispatch(updateDoneRow(ID));
-        // },
-        // deleteProduct: (ID) => {
-        //     dispatch(deleteProduct(ID));
-        // }
+        keyboard: (key) => {
+            dispatch(keyboard(key));
+        },
     }
 };
 

@@ -1,6 +1,7 @@
 import {createStore, applyMiddleware, compose} from 'redux';
 import levelMiddleware from './middlewares/levelMiddleware/';
 import traningStringMiddleware from './middlewares/traningStringMiddleware/';
+import keybordMiddleware from './middlewares/keybordMiddleware/';
 import rootReducer from './reducers';
 
 export default initialState =>
@@ -10,7 +11,8 @@ export default initialState =>
     compose(
       applyMiddleware(
           levelMiddleware,
-          traningStringMiddleware
+          traningStringMiddleware,
+          keybordMiddleware
       ),
       window.devToolsExtension ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f
     )

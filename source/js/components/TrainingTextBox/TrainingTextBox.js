@@ -13,14 +13,17 @@ export class TrainingTextBox extends Component {
         const {TrainingText,getRandomString} = this.props;
         getRandomString(TrainingText);
     };
+
     render() {
         const {TrainingText} = this.props;
+        console.log('я нажал кнопку',document.e);
         return (
             <div style={{display:'flex'}}>
                 {typeof TrainingText !=='string'?TrainingText.map((char,i) => (
-                    <Char key={i}
+                    <Char
+                        key={i}
                         name={char}
-
+                        isChecked={i===0}
                     />
                 )):'Подождите, идет загрузка'}
             </div>

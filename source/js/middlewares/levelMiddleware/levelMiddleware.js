@@ -13,7 +13,7 @@ const levelMiddleware = store => next => action => {
             store.dispatch(getTimer(Timer--));
         },1000);
         const intervalStopwatch = setInterval(()=>{
-            if(intervalStopwatch === 0)
+            if(intervalStopwatch === 60)
                 clearInterval(intervalStopwatch);
             store.dispatch(getStopwatch(Stopwatch++));
         },1000);
