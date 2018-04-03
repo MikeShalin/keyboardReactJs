@@ -7,6 +7,8 @@ export const {
     getTrainingText:getTrainingText,
     getRandomString:getRandomString,
     getTimer:getTimer,
+    startTimer:startTimer,
+    stopTimer:stopTimer,
     getStopwatch:getStopwatch,
     getErrorsCount:getErrorsCount,
     getCharCount:getCharCount,
@@ -24,6 +26,10 @@ export const {
     GET_RANDOM_STRING: TrainingText => TrainingText,
 
     GET_TIMER: sec => sec,
+
+    STOP_TIMER:undefined,
+
+    START_TIMER:undefined,
 
     GET_STOPWATCH: sec => sec,
 
