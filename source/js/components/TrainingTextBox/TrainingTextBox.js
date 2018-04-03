@@ -3,7 +3,6 @@
  */
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
 import {getRandomString} from '../../actions/actions';
 import Char from '../Char/';
 
@@ -16,7 +15,6 @@ export class TrainingTextBox extends Component {
 
     render() {
         const {TrainingText,ErrorChar} = this.props;
-        console.log('есть ошибка',ErrorChar);
         return (
             <div style={{display:'flex'}}>
                 {typeof TrainingText !=='string'?TrainingText.map((char,i) => (
@@ -37,7 +35,6 @@ const mapStateToProps = (state) =>{
     return{
         TrainingText:state.TrainingText,
         ErrorChar: state.ErrorChar
-
     }
 };
 
@@ -50,4 +47,4 @@ const mapDispatchToProps = (dispatch) =>{
     }
 };
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(TrainingTextBox));
+export default connect(mapStateToProps,mapDispatchToProps)(TrainingTextBox);

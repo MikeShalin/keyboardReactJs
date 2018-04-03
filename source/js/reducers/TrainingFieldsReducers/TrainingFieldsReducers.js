@@ -4,7 +4,7 @@ import {
     getErrorsCount,
     getCharCount
 } from '../../actions/actions.js';
-import {handleAction, handleActions} from 'redux-actions';
+import {handleAction} from 'redux-actions';
 
 export const Timer = handleAction(
     getTimer,

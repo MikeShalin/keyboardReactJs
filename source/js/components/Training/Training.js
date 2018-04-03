@@ -3,10 +3,9 @@
  */
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
 import TrainingFields from '../TrainingFields';
 import TrainingTextBox from '../TrainingTextBox';
-import {keyboard, getStopwatch, getTimer,trainingStart,errorChar} from "../../actions/actions";
+import {keyboard, getStopwatch, getTimer,trainingStart} from "../../actions/actions";
 
 export class Training extends Component {
     componentWillUnmount(){
@@ -16,9 +15,8 @@ export class Training extends Component {
     };
     keyboardListener =(e)=>{
         const {keyboard} = this.props;
-        if(e.key.length === 1){
+        if(e.key.length === 1)
             keyboard(e.key);
-        }
     };
     interval = (timerTime,trainingStart,AppState,getTimer) =>setInterval(()=>{
         timerTime--;
@@ -28,25 +26,9 @@ export class Training extends Component {
             trainingStart(AppState+1);
         }
     },1000);
-    // componentWillReceiveProps(nextProps){
-    //     const {TrainingText,errorChar} = this.props;
-    //     if(nextProps.TrainingText.length !== TrainingText.length){
-    //         console.log('Хуй там плавал');
-    //     } else {
-    //         console.log('Одинаково');
-    //
-    //     }
-    // }
     componentDidUpdate(prevProps) {
-        const {Timer,CharCount,AppState,getTimer,trainingStart,TrainingText,errorChar} = this.props;
+        const {Timer,CharCount,AppState,getTimer,trainingStart} = this.props;
         let timerTime = Timer.value;
-        // console.log(TrainingText);
-        // if(TrainingText.length !== CharCount){
-        //     console.log('Хуй там плавал');
-        // } else {
-        //     console.log('Одинаково');
-        //
-        // }
         if(CharCount.value === 0){
             trainingStart(AppState+1);
         }
@@ -114,9 +96,6 @@ const mapDispatchToProps = (dispatch) =>{
         trainingStart: (level) => {
           dispatch(trainingStart(level))
         },
-        errorChar: (char) => {
-            dispatch(errorChar(char))
-        },
         keyboard: (key) => {
             dispatch(keyboard(key));
         },
@@ -129,4 +108,4 @@ const mapDispatchToProps = (dispatch) =>{
     }
 };
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Training));
+export default connect(mapStateToProps,mapDispatchToProps)(Training);

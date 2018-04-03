@@ -2,7 +2,6 @@ import {createStore, applyMiddleware, compose} from 'redux';
 import levelMiddleware from './middlewares/levelMiddleware/';
 import traningStringMiddleware from './middlewares/traningStringMiddleware/';
 import keybordMiddleware from './middlewares/keybordMiddleware/';
-// import errorCharMiddleware from './middlewares/errorCharMiddleware/';
 import rootReducer from './reducers';
 
 export default initialState =>
@@ -14,7 +13,6 @@ export default initialState =>
           levelMiddleware,
           traningStringMiddleware,
           keybordMiddleware,
-          // errorCharMiddleware
       ),
       window.devToolsExtension ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f
     )

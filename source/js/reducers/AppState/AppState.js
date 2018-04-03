@@ -1,5 +1,5 @@
 import {appStateUp} from '../../actions/actions.js';
-import {handleAction, handleActions} from 'redux-actions';
+import {handleAction} from 'redux-actions';
 
 const AppState = handleAction(
     appStateUp,

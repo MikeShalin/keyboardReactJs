@@ -3,9 +3,7 @@
  */
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
 import {trainingStart} from "../../actions/actions";
-
 
 export class LevelButton extends Component {
     handleRepeat =()=>{
@@ -40,4 +38,4 @@ const mapDispatchToProps = (dispatch) =>{
     }
 };
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(LevelButton));
+export default connect(mapStateToProps,mapDispatchToProps)(LevelButton);

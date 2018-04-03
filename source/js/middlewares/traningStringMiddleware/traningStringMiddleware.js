@@ -1,4 +1,4 @@
-import {appStateUp,trainingStart,getRandomString} from "../../actions/actions.js";
+import {getRandomString} from "../../actions/actions.js";
 import {getTrainingText} from "../../actions/actions";
 
 

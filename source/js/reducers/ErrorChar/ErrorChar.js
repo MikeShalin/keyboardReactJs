@@ -1,5 +1,5 @@
 import {errorChar} from '../../actions/actions.js';
-import {handleAction, handleActions} from 'redux-actions';
+import {handleAction} from 'redux-actions';
 
 const ErrorChar = handleAction(
     errorChar,

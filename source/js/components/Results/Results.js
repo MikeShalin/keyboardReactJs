@@ -3,7 +3,6 @@
  */
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
 import TrainingFields from '../TrainingFields';
 import {trainingStart} from "../../actions/actions";
 
@@ -11,6 +10,7 @@ export class Results extends Component {
     render() {
         const {Stopwatch,ErrorsCount,CharCount} = this.props;
         CharCount.value = 10 - CharCount.value;
+        Stopwatch.value = Stopwatch.value + 1;
         return (
             <div>
                 <h3>Результаты тренировки</h3>
@@ -44,4 +44,4 @@ const mapDispatchToProps = (dispatch) =>{
     }
 };
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Results));
+export default connect(mapStateToProps,mapDispatchToProps)(Results);
