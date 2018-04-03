@@ -19,7 +19,7 @@ export const {
 
     TRAINING_FINISH: undefined,
 
-    TRAINING_START: undefined,
+    TRAINING_START: level=>level,
 
     GET_TRAINING_TEXT: undefined,
 

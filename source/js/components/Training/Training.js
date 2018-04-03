@@ -9,34 +9,33 @@ import TrainingTextBox from '../TrainingTextBox';
 import {keyboard, getStopwatch, getTimer} from "../../Actions/actions";
 
 export class Training extends Component {
-    done =()=>{
-        console.log('закончить');
-        // clearInterval(this.Timer);
-        // clearInterval(this.Stopwatch);
+    timerStop =()=>{
+        clearInterval(this.timer);
+        clearInterval(this.stopwatch);
     };
     componentDidMount(){
         const {keyboard,getTimer,getStopwatch,Timer,Stopwatch} = this.props;
         let timerTime = Timer.value,
             stopwatchTime = Stopwatch.value;
-        // startTimer();
+        timerTime--;
+        stopwatchTime++;
         addEventListener("keydown", function(e) {
             console.log('В тренировке', e.key);
             if((e.key !== 'Control') || (e.key !== 'Alt') || (e.key !== 'Shift'))
                 keyboard(e.key);
         });
 
-
         this.timer = setInterval(()=>{
-            if(timerTime === 0)
+            if(timerTime === 0){
                 clearInterval(this.Timer);
-            console.log('Timer',timerTime--);
+            }
             getTimer(timerTime);
         },1000);
 
         this.stopwatch = setInterval(()=>{
-            if(stopwatchTime === 60)
+            if(stopwatchTime === 60){
                 clearInterval(this.Stopwatch);
-            console.log('Stopwatch',stopwatchTime++);
+            }
             getStopwatch(stopwatchTime);
         },1000);
     }
@@ -51,8 +50,10 @@ export class Training extends Component {
                         value = {field.value}
                     />
                 ))}
-                <button onClick={()=>this.done}>done</button>
-                <TrainingTextBox/>
+                <button onClick={this.done}>done</button>
+                <TrainingTextBox
+
+                />
             </div>
         )
     }
